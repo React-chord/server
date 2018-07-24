@@ -10,10 +10,10 @@ const { musicSeed } = require('../tests/seed/seed');
 chai.use(chaiHttp);
 
 // remove and create musics
-beforeEach(async () => {
+beforeEach(async function () {
   this.timeout(5000);
   await Music.deleteMany({});
-  const musicOne = await new Music(musicSeed[0]).save();
+  await new Music(musicSeed[0]).save();
 });
 
 describe('POST CREATE MUSIC', () => {
