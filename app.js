@@ -12,9 +12,7 @@ let url = `mongodb://${process.env.DB_USER}:${
 const port = process.env.PORT || 3000;
 
 if (process.env.NODE_ENV === 'test') {
-  url = `mongodb://${process.env.DB_USER}:${
-    process.env.DB_PASSWORD
-  }@ds249311.mlab.com:49311/chords-db-test`;
+  url += '-test';
 }
 mongoose.connect(
   url,

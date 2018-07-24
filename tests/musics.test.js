@@ -75,7 +75,7 @@ describe('GET /musics/:id', () => {
   it('should get music by id', (done) => {
     chai
       .request(app)
-      .get(`/musics/${musicOne[0]._id.toHexString()}`)
+      .get(`/musics/${musicSeed[0]._id.toHexString()}`)
       .end((err, res) => {
         console.log(res.body);
         expect(res).to.have.status(200);
