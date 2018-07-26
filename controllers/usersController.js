@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
+const verifyToken = 'jbIUG78hoiknbY&g';
+
 module.exports = {
   addNewUser: (req, res) => {
     const { fullname, email, password } = req.body;
@@ -25,7 +27,7 @@ module.exports = {
 
     User.findByEmailThenComparePass(candidate)
       .then((result) => {
-        const secretKey = process.env.JWT_SECRET;
+        const secretKey = verifyToken;
         const payload = {
           id: result.user._id,
           email: result.user.email,
