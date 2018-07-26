@@ -2,7 +2,8 @@
   "extends": "airbnb-base",
   "rules": {
     "no-console": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "no-unused-expressions": "off"
   },
   "env": {
     "node": true,
