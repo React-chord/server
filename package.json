@@ -4,7 +4,8 @@
   "description": "server for project react-chord",
   "main": "index.js",
   "scripts": {
-    "test": "export NODE_ENV=test || SET NODE_ENV=test && mocha tests/*.test.js"
+    "test": "export NODE_ENV=test || SET NODE_ENV=test && mocha tests/*.test.js",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -22,18 +23,17 @@
   },
   "homepage": "https://github.com/React-chord/server#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "chai": "4.1.2",
     "chai-http": "4.0.0",
     "cors": "2.8.4",
     "dotenv": "6.0.0",
     "express": "4.16.3",
-    "jsonwebtoken": "8.3.0",
+    "jsonwebtoken": "^8.3.0",
     "mocha": "5.2.0",
     "mongoose": "5.2.5"
   },
   "devDependencies": {
-    "babel-cli": "6.26.0",
-    "babel-preset-env": "1.7.0",
     "eslint": "4.19.1",
     "eslint-config-airbnb-base": "13.0.0",
     "eslint-plugin-import": "2.13.0"
