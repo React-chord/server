@@ -4,7 +4,7 @@
   "description": "server for project react-chord",
   "main": "index.js",
   "scripts": {
-    "test": "export NODE_ENV=test || SET NODE_ENV=test && mocha tests/*.test.js",
+    "test": "export NODE_ENV=test || SET NODE_ENV=test && mocha tests/*.test.js --exit",
     "coverage": "istanbul cover tests/*.test.js",
     "dev": "nodemon app.js"
   },

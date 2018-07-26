@@ -33,8 +33,13 @@ app.use('/musics', musicsRouter);
 app.use('/users', usersRouter);
 app.use('/chords', chordsRouter);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`server running on port ${port}`);
 });
 
+function stop() {
+  server.close();
+}
+
 module.exports = app;
+module.exports.stop = stop;
