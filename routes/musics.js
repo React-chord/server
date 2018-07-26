@@ -1,8 +1,6 @@
 const express = require('express');
 
 const router = express.Router();
-// const isAuthorized = require('../middleware/authorization');
-// const isAuthenticated = require('../middleware/authentication');
 const musicsController = require('../controllers/musicsController');
 
 router.get('/', musicsController.retrieveMusics);

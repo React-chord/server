@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Music = require('../../models/musics');
 
 const musicSeed = [
   {
@@ -8,4 +9,11 @@ const musicSeed = [
     tempo: 150,
   },
 ];
-module.exports = { musicSeed };
+
+const populateMusics = async (done) => {
+  await Music.remove({});
+  await Music.insertMany(musicSeed);
+  await done();
+};
+
+module.exports = { musicSeed, populateMusics };
