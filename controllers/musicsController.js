@@ -6,7 +6,7 @@ module.exports = {
       .sort({ createdAt: -1 })
       .populate('userId')
       .then((musics) => {
-        res.status(200).json({ message: 'retrieve articles success', musics });
+        res.status(200).json({ message: 'retrieve musics success', musics });
       })
       .catch((err) => {
         res.status(500).json({ error: err });
@@ -18,7 +18,7 @@ module.exports = {
       .sort({ createdAt: -1 })
       .populate('userId')
       .then((music) => {
-        res.status(200).json({ message: 'retrieve articles by user success', data: music });
+        res.status(200).json({ message: 'retrieve musics by user success', data: music });
       })
       .catch((err) => {
         res.status(500).json({ error: err });
@@ -29,7 +29,7 @@ module.exports = {
     Music.findById({ _id: id })
       .populate('userId')
       .then((music) => {
-        res.status(200).json({ message: 'fetch article success', music });
+        res.status(200).json({ message: 'fetch music success', music });
       })
       .catch((err) => {
         res.status(400).json({ error: err });
@@ -38,22 +38,16 @@ module.exports = {
   addMusics: (req, res) => {
     const newMusic = {
       title: req.body.title,
-      content: req.body.content,
-      userId: req.user.id,
+      content: req.body.artist,
+      chords: req.body.chords,
+      tempo: req.body.tempo,
     };
 
-    // if req.file undefined let skip the image updated
-    if (req.file && req.file.cloudStoragePublicUrl) {
-      newMusic.imageUrl = req.file.cloudStoragePublicUrl;
-    } else {
-      newMusic.imageUrl = null;
-    }
-
-    const article = new Music(newMusic);
-    article
+    const musicNew = new Music(newMusic);
+    musicNew
       .save()
-      .then((result) => {
-        res.status(201).json({ message: 'create article success', data: result });
+      .then((music) => {
+        res.status(201).json({ message: 'create musics success', data: music });
       })
       .catch((err) => {
         res.status(400).json({ error: err });
@@ -61,24 +55,21 @@ module.exports = {
   },
   updateMusic: (req, res) => {
     const { id } = req.params;
-    const article = {
+    const music = {
       title: req.body.title,
-      content: req.body.content,
-      userId: req.user.id,
+      content: req.body.artist,
+      chords: req.body.chords,
+      tempo: req.body.tempo,
     };
-    // if req.file undefined let skip the image updated
-    if (req.file && req.file.cloudStoragePublicUrl) {
-      article.imageUrl = req.file.cloudStoragePublicUrl;
-    }
 
     Music.findByIdAndUpdate(
       { _id: id },
       {
-        $set: article,
+        $set: music,
       },
     )
       .then((result) => {
-        res.status(200).json({ message: 'update article success', data: result });
+        res.status(200).json({ message: 'update music success', data: result });
       })
       .catch((err) => {
         res.status(400).json({ error: err });
@@ -89,8 +80,8 @@ module.exports = {
     Music.findByIdAndRemove({
       _id: id,
     })
-      .then((result) => {
-        res.status(200).json({ message: 'delete article success', data: result });
+      .then(() => {
+        res.status(200).json({ message: 'delete music success', data: null });
       })
       .catch((err) => {
         res.status(400).json({ error: err });
