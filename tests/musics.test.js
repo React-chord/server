@@ -193,7 +193,6 @@ describe('POST /users/login', () => {
         password,
       })
       .end((err, res) => {
-        console.log('res', res.body);
         expect(res).to.have.status(200);
         expect(res.body).have.property('message');
         expect(res.body.token).exist;

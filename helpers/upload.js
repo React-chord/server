@@ -5,6 +5,7 @@ const storage = Storage({
   projectId: process.env.PROJECTID,
   keyFilename: process.env.KEYFILE,
 });
+
 const bucket = storage.bucket(CLOUD_BUCKET);
 const getPublicUrl = filename => `https://storage.googleapis.com/${CLOUD_BUCKET}/${filename}`;
 const sendUploadToGCS = (req, res, next) => {

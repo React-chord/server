@@ -33,6 +33,8 @@ module.exports = {
       newChord.imageUrl = null;
     }
 
+    console.log(newChord);
+
     const chord = new Chord(newChord);
     chord
       .save()
