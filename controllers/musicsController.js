@@ -4,7 +4,6 @@ module.exports = {
   retrieveMusics: (req, res) => {
     Music.find()
       .sort({ createdAt: -1 })
-      .populate('userId')
       .then((musics) => {
         res.status(200).json({ message: 'retrieve musics success', musics });
       })
@@ -16,7 +15,6 @@ module.exports = {
     const userId = req.user.id;
     Music.find({ userId })
       .sort({ createdAt: -1 })
-      .populate('userId')
       .then((music) => {
         res.status(200).json({ message: 'retrieve musics by user success', data: music });
       })
@@ -27,7 +25,6 @@ module.exports = {
   getMusicsById: (req, res) => {
     const { id } = req.params;
     Music.findById({ _id: id })
-      .populate('userId')
       .then((music) => {
         res.status(200).json({ message: 'fetch music success', music });
       })
