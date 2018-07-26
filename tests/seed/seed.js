@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const Music = require('../../models/musics');
 
+const verifyToken = 'jbIUG78hoiknbY&g';
 const userOneId = new mongoose.mongo.ObjectId();
 const userTwoId = new mongoose.mongo.ObjectId();
 
@@ -23,10 +24,7 @@ const users = [
 const tokens = [
   {
     token: jwt
-      .sign(
-        { id: users[0]._id, fullname: users[0].fullname, email: users[0].email },
-        process.env.JWT_SECRET,
-      )
+      .sign({ id: users[0]._id, fullname: users[0].fullname, email: users[0].email }, verifyToken)
       .toString(),
   },
 ];
