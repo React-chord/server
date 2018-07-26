@@ -6,8 +6,7 @@ module.exports = {
   addNewUser: (req, res) => {
     const { fullname, email, password } = req.body;
     const user = { fullname, email, password };
-    User
-      .findOneOrCreate(user)
+    User.findOneOrCreate(user)
       .then((result) => {
         res.status(result.status).json({
           message: result.message,
@@ -24,8 +23,7 @@ module.exports = {
     const { email, password } = req.body;
     const candidate = { email, password };
 
-    User
-      .findByEmailThenComparePass(candidate)
+    User.findByEmailThenComparePass(candidate)
       .then((result) => {
         const secretKey = process.env.JWT_SECRET;
         const payload = {
@@ -47,5 +45,12 @@ module.exports = {
           message: err.message,
         });
       });
+  },
+
+  checkLoginState: (req, res) => {
+    const { user } = res.locals;
+    if (user) {
+      res.status(200).json({ message: 'user logged in' });
+    }
   },
 };
