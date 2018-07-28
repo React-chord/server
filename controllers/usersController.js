@@ -51,7 +51,7 @@ module.exports = {
   checkLoginState: (req, res) => {
     const { user } = res.locals;
     if (user) {
-      res.status(200).json({ message: 'user logged in' });
+      res.status(200).json({ message: 'user logged in', user });
     }
   },
 };
