@@ -29,6 +29,7 @@ module.exports = {
         const payload = {
           id: result.user._id,
           email: result.user.email,
+          fullname: result.user.fullname
         };
 
         const token = jwt.sign(payload, secretKey);
