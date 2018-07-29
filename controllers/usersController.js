@@ -36,7 +36,10 @@ module.exports = {
 
         res.status(result.status).json({
           message: result.message,
-          user: result.user.fullname,
+          user: {
+            fullname: result.user.fullname,
+            email: result.user.email
+          },
           token,
         });
       })
