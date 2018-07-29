@@ -31,13 +31,17 @@ module.exports = {
         const payload = {
           id: result.user._id,
           email: result.user.email,
+          fullname: result.user.fullname
         };
 
         const token = jwt.sign(payload, secretKey);
 
         res.status(result.status).json({
           message: result.message,
-          user: result.user.fullname,
+          user: {
+            fullname: result.user.fullname,
+            email: result.user.email
+          },
           token,
         });
       })
@@ -52,7 +56,7 @@ module.exports = {
   checkLoginState: (req, res) => {
     const { user } = res.locals;
     if (user) {
-      res.status(200).json({ message: 'user logged in' });
+      res.status(200).json({ message: 'user logged in', user });
     }
   },
 };
