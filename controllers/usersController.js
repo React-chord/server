@@ -1,22 +1,22 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-const User = require('../models/user');
+const User = require("../models/user");
 
-const verifyToken = 'jbIUG78hoiknbY&g';
+const verifyToken = "jbIUG78hoiknbY&g";
 
 module.exports = {
   addNewUser: (req, res) => {
     const { fullname, email, password } = req.body;
     const user = { fullname, email, password };
     User.findOneOrCreate(user)
-      .then((result) => {
+      .then(result => {
         res.status(result.status).json({
-          message: result.message,
+          message: result.message
         });
       })
-      .catch((err) => {
+      .catch(err => {
         res.status(err.status).json({
-          message: err.message,
+          message: err.message
         });
       });
   },
@@ -26,7 +26,7 @@ module.exports = {
     const candidate = { email, password };
 
     User.findByEmailThenComparePass(candidate)
-      .then((result) => {
+      .then(result => {
         const secretKey = verifyToken;
         const payload = {
           id: result.user._id,
@@ -40,23 +40,55 @@ module.exports = {
           message: result.message,
           user: {
             fullname: result.user.fullname,
-            email: result.user.email
+            email: result.user.email,
+            courses: {
+              practice: result.user.coursePractice
+            }
           },
-          token,
+          token
         });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
         res.status(err.status).json({
-          message: err.message,
+          message: err.message
         });
       });
   },
 
-  checkLoginState: (req, res) => {
+  checkLoginState: async (req, res) => {
     const { user } = res.locals;
+
+    let foundUser = await User.findById(user.id).populate(
+      "coursePractice.name"
+    );
     if (user) {
-      res.status(200).json({ message: 'user logged in', user });
+      res.status(200).json({
+        message: "user logged in",
+        user: {
+          ...user,
+          courses: {
+            practice: foundUser.coursePractice
+          }
+        }
+      });
     }
   },
+
+  updatePracticeCourse: async (req, res) => {
+    try {
+      let { note, score } = req.body
+      let { user } = res.locals
+      let foundUser = await User.findById(user.id).populate('coursePractice.name')
+      foundUser.coursePractice.forEach(course => {
+        if (course.name.note === note) {
+          course.score = score
+        }
+      })
+      await foundUser.save()
+      res.json({message: 'updated'})
+    } catch (error) {
+      res.status(500).json({error})
+    }
+  }
 };
