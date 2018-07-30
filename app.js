@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const musicsRouter = require('./routes/musics');
 const usersRouter = require('./routes/users.js');
 const chordsRouter = require('./routes/chords');
+const coursesRouter = require('./routes/courses');
 
 let url = `mongodb://${process.env.DB_USER}:${
   process.env.DB_PASSWORD
@@ -32,6 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/musics', musicsRouter);
 app.use('/users', usersRouter);
 app.use('/chords', chordsRouter);
+app.use('/courses', coursesRouter)
 
 const server = app.listen(port, () => {
   console.log(`server running on port ${port}`);
